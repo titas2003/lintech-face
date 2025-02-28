@@ -2,7 +2,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaUsers, FaLightbulb, FaTruck, FaStar } from 'react-icons/fa';
-import Footer from '../components/Footer';
 
 // Import local images
 import AboutHero from '../assets/about/about-hero.jpg';
@@ -206,9 +205,6 @@ const AboutPage = () => {
         <CtaTitle>Ready to Upgrade Your PC?</CtaTitle>
         <CtaButton>Shop Now</CtaButton>
       </CtaSection>
-
-      {/* Footer */}
-      <Footer />
     </Container>
   );
 };

@@ -13,9 +13,6 @@ import ProcessorIcon from '../assets/processor-icon.png';
 import GPUIcon from '../assets/gpu-icon.png';
 import StorageIcon from '../assets/storage-icon.png';
 
-// Import Footer Component
-import Footer from '../components/Footer';
-
 // Styled Components (same as before)
 const Container = styled.div`
   font-family: 'Arial', sans-serif;
@@ -332,9 +329,6 @@ const HomePage = () => {
           <NewsletterButton>Subscribe</NewsletterButton>
         </NewsletterForm>
       </NewsletterSection>
-
-      {/* Footer */}
-      <Footer />
     </Container>
   );
 };
