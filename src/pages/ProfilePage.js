@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../components/Loader';
 
-// Styled Components
 const Container = styled.div`
   font-family: 'Arial', sans-serif;
   color: #333;
