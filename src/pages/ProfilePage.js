@@ -135,6 +135,7 @@ const ProfilePage = () => {
             navigate('/login'); // Redirect to login if no token is found
             return;
           }
+          
   
           // Fetch customer details
           const customerResponse = await axios.get(
