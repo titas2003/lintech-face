@@ -183,9 +183,36 @@ const ProfilePage = () => {
     };
   
     // Handle add to cart
-    const handleAddToCart = (productId) => {
-      alert(`Added product ${productId} to cart`);
-      // Add your cart logic here
+    const handleAddToCart = async (productId) => {
+      try {
+        const token = localStorage.getItem('token'); // Get the token from localStorage
+        if (!token) {
+          navigate('/login'); // Redirect to login if no token is found
+          return;
+        }
+  
+        // Send the product ID to the API
+        const response = await axios.post(
+          'http://192.168.0.209:5000/api/customer/order/addToCart',
+          {
+            productIds: [productId], // Send the product ID in an array
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+  
+        if (response.data.message === 'Products added to cart') {
+          alert('Product added to cart successfully!');
+        } else {
+          alert('Failed to add product to cart. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error adding product to cart:', error);
+        alert('An error occurred. Please try again.');
+      }
     };
   
     // Show loader while loading
