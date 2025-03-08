@@ -5,14 +5,15 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 // Styled Components
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding-top: 4rem; // Adjust this value based on your Navbar height
+  min-height: 75vh;
+  padding-top: 0rem; // Adjust this value based on your Navbar height
   background: #f0f0f0;
 `;
 
@@ -126,43 +127,47 @@ const LoginPage = () => {
   };
 
   return (
-    <Container>
-      <LoginForm>
-        <Title>Login</Title>
-        <Formik
-          initialValues={{
-            email: '',
-            password: '',
-          }}
-          validationSchema={LoginSchema}
-          onSubmit={handleLogin}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <FormGroup>
-                <Label>Email</Label>
-                <Input type="email" name="email" placeholder="Enter your email" />
-                <ErrorMessage name="email" component={ErrorText} />
-              </FormGroup>
+    <main>
+      <Navbar />
+      <Container>
+        <LoginForm>
+          <Title>Login</Title>
+          <Formik
+            initialValues={{
+              email: '',
+              password: '',
+            }}
+            validationSchema={LoginSchema}
+            onSubmit={handleLogin}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <FormGroup>
+                  <Label>Email</Label>
+                  <Input type="email" name="email" placeholder="Enter your email" />
+                  <ErrorMessage name="email" component={ErrorText} />
+                </FormGroup>
 
-              <FormGroup>
-                <Label>Password</Label>
-                <Input type="password" name="password" placeholder="Enter your password" />
-                <ErrorMessage name="password" component={ErrorText} />
-              </FormGroup>
+                <FormGroup>
+                  <Label>Password</Label>
+                  <Input type="password" name="password" placeholder="Enter your password" />
+                  <ErrorMessage name="password" component={ErrorText} />
+                </FormGroup>
 
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Logging In...' : 'Login'}
-              </Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? 'Logging In...' : 'Login'}
+                </Button>
 
-              <SignupLink>
-                Don't have an account? <a href="/signup">Sign Up</a>
-              </SignupLink>
-            </Form>
-          )}
-        </Formik>
-      </LoginForm>
-    </Container>
+                <SignupLink>
+                  Don't have an account? <a href="/signup">Sign Up</a>
+                </SignupLink>
+              </Form>
+            )}
+          </Formik>
+        </LoginForm>
+      </Container>
+    </main>
+
   );
 };
 

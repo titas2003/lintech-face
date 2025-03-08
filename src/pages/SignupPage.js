@@ -5,14 +5,16 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 // Styled Components
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding-top: 4rem; // Adjust this value based on your Navbar height
+  min-height: 90vh;
+  padding-top: 2rem; // Adjust this value based on your Navbar height
+  padding-bottom: 10rem;
   background: #f0f0f0;
 `;
 
@@ -132,88 +134,92 @@ const SignupPage = () => {
   };
 
   return (
-    <Container>
-      <SignupForm>
-        <Title>Sign Up</Title>
-        <Formik
-          initialValues={{
-            name: '',
-            email: '',
-            phone: '',
-            city: '',
-            state: '',
-            pincode: '',
-            street: '',
-            locality: '',
-            password: '',
-          }}
-          validationSchema={SignupSchema}
-          onSubmit={handleSignup}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <FormGroup>
-                <Label>Name</Label>
-                <Input type="text" name="name" placeholder="Enter your name" />
-                <ErrorMessage name="name" component={ErrorText} />
-              </FormGroup>
+    <main>
+      <Navbar />
+      <Container>
+        <SignupForm>
+          <Title>Sign Up</Title>
+          <Formik
+            initialValues={{
+              name: '',
+              email: '',
+              phone: '',
+              city: '',
+              state: '',
+              pincode: '',
+              street: '',
+              locality: '',
+              password: '',
+            }}
+            validationSchema={SignupSchema}
+            onSubmit={handleSignup}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <FormGroup>
+                  <Label>Name</Label>
+                  <Input type="text" name="name" placeholder="Enter your name" />
+                  <ErrorMessage name="name" component={ErrorText} />
+                </FormGroup>
 
-              <FormGroup>
-                <Label>Email</Label>
-                <Input type="email" name="email" placeholder="Enter your email" />
-                <ErrorMessage name="email" component={ErrorText} />
-              </FormGroup>
+                <FormGroup>
+                  <Label>Email</Label>
+                  <Input type="email" name="email" placeholder="Enter your email" />
+                  <ErrorMessage name="email" component={ErrorText} />
+                </FormGroup>
 
-              <FormGroup>
-                <Label>Phone</Label>
-                <Input type="text" name="phone" placeholder="Enter your phone number" />
-                <ErrorMessage name="phone" component={ErrorText} />
-              </FormGroup>
+                <FormGroup>
+                  <Label>Phone</Label>
+                  <Input type="text" name="phone" placeholder="Enter your phone number" />
+                  <ErrorMessage name="phone" component={ErrorText} />
+                </FormGroup>
 
-              <FormGroup>
-                <Label>City</Label>
-                <Input type="text" name="city" placeholder="Enter your city" />
-                <ErrorMessage name="city" component={ErrorText} />
-              </FormGroup>
+                <FormGroup>
+                  <Label>City</Label>
+                  <Input type="text" name="city" placeholder="Enter your city" />
+                  <ErrorMessage name="city" component={ErrorText} />
+                </FormGroup>
 
-              <FormGroup>
-                <Label>State</Label>
-                <Input type="text" name="state" placeholder="Enter your state" />
-                <ErrorMessage name="state" component={ErrorText} />
-              </FormGroup>
+                <FormGroup>
+                  <Label>State</Label>
+                  <Input type="text" name="state" placeholder="Enter your state" />
+                  <ErrorMessage name="state" component={ErrorText} />
+                </FormGroup>
 
-              <FormGroup>
-                <Label>Pincode</Label>
-                <Input type="text" name="pincode" placeholder="Enter your pincode" />
-                <ErrorMessage name="pincode" component={ErrorText} />
-              </FormGroup>
+                <FormGroup>
+                  <Label>Pincode</Label>
+                  <Input type="text" name="pincode" placeholder="Enter your pincode" />
+                  <ErrorMessage name="pincode" component={ErrorText} />
+                </FormGroup>
 
-              <FormGroup>
-                <Label>Street</Label>
-                <Input type="text" name="street" placeholder="Enter your street" />
-                <ErrorMessage name="street" component={ErrorText} />
-              </FormGroup>
+                <FormGroup>
+                  <Label>Street</Label>
+                  <Input type="text" name="street" placeholder="Enter your street" />
+                  <ErrorMessage name="street" component={ErrorText} />
+                </FormGroup>
 
-              <FormGroup>
-                <Label>Locality</Label>
-                <Input type="text" name="locality" placeholder="Enter your locality" />
-                <ErrorMessage name="locality" component={ErrorText} />
-              </FormGroup>
+                <FormGroup>
+                  <Label>Locality</Label>
+                  <Input type="text" name="locality" placeholder="Enter your locality" />
+                  <ErrorMessage name="locality" component={ErrorText} />
+                </FormGroup>
 
-              <FormGroup>
-                <Label>Password</Label>
-                <Input type="password" name="password" placeholder="Enter your password" />
-                <ErrorMessage name="password" component={ErrorText} />
-              </FormGroup>
+                <FormGroup>
+                  <Label>Password</Label>
+                  <Input type="password" name="password" placeholder="Enter your password" />
+                  <ErrorMessage name="password" component={ErrorText} />
+                </FormGroup>
 
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Signing Up...' : 'Sign Up'}
-              </Button>
-            </Form>
-          )}
-        </Formik>
-      </SignupForm>
-    </Container>
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? 'Signing Up...' : 'Sign Up'}
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </SignupForm>
+      </Container>
+    </main>
+
   );
 };
 

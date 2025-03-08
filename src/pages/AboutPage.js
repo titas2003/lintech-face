@@ -8,6 +8,7 @@ import AboutHero from '../assets/about/about-hero.jpg';
 import TeamMember1 from '../assets/about/team-member-1.jpeg';
 import TeamMember2 from '../assets/about/team-member-2.jpg';
 import TeamMember3 from '../assets/about/team-member-3.jpg';
+import Navbar from '../components/Navbar';
 
 // Styled Components
 const Container = styled.div`
@@ -141,6 +142,7 @@ const CtaButton = styled.button`
 const AboutPage = () => {
   return (
     <Container>
+      <Navbar />
       {/* Hero Section */}
       <HeroSection>
         <HeroSubtitle>Your trusted partner for affordable computer parts</HeroSubtitle>

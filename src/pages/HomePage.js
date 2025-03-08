@@ -13,6 +13,7 @@ import ProcessorIcon from '../assets/processor-icon.png';
 import GPUIcon from '../assets/gpu-icon.png';
 import StorageIcon from '../assets/storage-icon.png';
 import Loader from '../components/Loader';
+import Navbar from '../components/Navbar';
 
 // Styled Components (same as before)
 const Container = styled.div`
@@ -242,6 +243,7 @@ const HomePage = () => {
   }
   return (
     <Container>
+      <Navbar />
       {/* Hero Section */}
       <HeroSection>
         <HeroContent>
