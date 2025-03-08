@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 
 const Container = styled.div`
@@ -120,136 +120,138 @@ const AddToCartButton = styled.button`
 
 // Profile Page Component
 const ProfilePage = () => {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true); // For products and customer data
-    const [customerName, setCustomerName] = useState(''); // Customer name state
-    const navigate = useNavigate();
-  
-    // Fetch customer details
-    useEffect(() => {
-      const fetchCustomerDetails = async () => {
-        try {
-          const token = localStorage.getItem('token'); // Get the token from localStorage
-          if (!token) {
-            navigate('/login'); // Redirect to login if no token is found
-            return;
-          }
-          
-  
-          // Fetch customer details
-          const customerResponse = await axios.get(
-            'http://192.168.0.209:5000/api/customer/getCustomer',
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-  
-          if (customerResponse.data.success) {
-            setCustomerName(customerResponse.data.customer.name); // Set customer name
-          }
-        } catch (error) {
-          console.error('Error fetching customer details:', error);
-          navigate('/login'); // Redirect to login on error
-        }
-      };
-  
-      fetchCustomerDetails();
-    }, [navigate]);
-  
-    // Fetch products from the API
-    useEffect(() => {
-      const fetchProducts = async () => {
-        try {
-          const response = await axios.get(
-            'http://192.168.0.209:5000/api/customer/product/getAllProducts'
-          );
-          setProducts(response.data);
-        } catch (error) {
-          console.error('Error fetching products:', error);
-        } finally {
-          setLoading(false); // Set loading to false after fetching
-        }
-      };
-  
-      fetchProducts();
-    }, []);
-  
-    // Handle logout
-    const handleLogout = () => {
-      localStorage.removeItem('token'); // Remove the token from localStorage
-      navigate('/login'); // Redirect to the login page
-    };
-  
-    // Handle add to cart
-    const handleAddToCart = async (productId) => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true); // For products and customer data
+  const [customerName, setCustomerName] = useState(''); // Customer name state
+  const navigate = useNavigate();
+
+  // Fetch customer details
+  useEffect(() => {
+    const fetchCustomerDetails = async () => {
       try {
         const token = localStorage.getItem('token'); // Get the token from localStorage
         if (!token) {
           navigate('/login'); // Redirect to login if no token is found
           return;
         }
-  
-        // Send the product ID to the API
-        const response = await axios.post(
-          'http://192.168.0.209:5000/api/customer/order/addToCart',
-          {
-            productIds: [productId], // Send the product ID in an array
-          },
+
+
+        // Fetch customer details
+        const customerResponse = await axios.get(
+          'http://192.168.0.209:5000/api/customer/getCustomer',
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-  
-        if (response.data.message === 'Products added to cart') {
-          alert('Product added to cart successfully!');
-        } else {
-          alert('Failed to add product to cart. Please try again.');
+
+        if (customerResponse.data.success) {
+          setCustomerName(customerResponse.data.customer.name); // Set customer name
         }
       } catch (error) {
-        console.error('Error adding product to cart:', error);
-        alert('An error occurred. Please try again.');
+        console.error('Error fetching customer details:', error);
+        navigate('/login'); // Redirect to login on error
       }
     };
-  
-    // Show loader while loading
-    if (loading) {
-      return <Loader />;
+
+    fetchCustomerDetails();
+  }, [navigate]);
+
+  // Fetch products from the API
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(
+          'http://192.168.0.209:5000/api/customer/product/getAllProducts'
+        );
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  // Handle logout
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove the token from localStorage
+    navigate('/login'); // Redirect to the login page
+  };
+
+  // Handle add to cart
+  const handleAddToCart = async (productId) => {
+    try {
+      const token = localStorage.getItem('token'); // Get the token from localStorage
+      if (!token) {
+        navigate('/login'); // Redirect to login if no token is found
+        return;
+      }
+
+      // Send the product ID to the API
+      const response = await axios.post(
+        'http://192.168.0.209:5000/api/customer/order/addToCart',
+        {
+          productIds: [productId], // Send the product ID in an array
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.message === 'Products added to cart') {
+        alert('Product added to cart successfully!');
+      } else {
+        alert('Failed to add product to cart. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error adding product to cart:', error);
+      alert('An error occurred. Please try again.');
     }
-  
-    return (
-      <Container>
-        {/* Header */}
-        <Header>
-          <CartButton onClick={() => navigate('/cart')}>Cart</CartButton>
-          <UserInfo>
-            <UserName>Welcome, {customerName}</UserName>
-            <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
-          </UserInfo>
-        </Header>
-  
-        {/* Product Grid */}
-        <ProductGrid>
-          {products.map((product) => (
-            <ProductCard key={product._id}>
+  };
+
+  // Show loader while loading
+  if (loading) {
+    return <Loader />;
+  }
+
+  return (
+    <Container>
+      {/* Header */}
+      <Header>
+        <CartButton onClick={() => navigate('/cart')}>Cart</CartButton>
+        <UserInfo>
+          <UserName>Welcome, {customerName}</UserName>
+          <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+        </UserInfo>
+      </Header>
+
+      {/* Product Grid */}
+      <ProductGrid>
+        {products.map((product) => (
+          <ProductCard key={product._id}>
+            <Link to={`/product/${product._id}`}>
               <ProductImage
                 src={`http://192.168.0.209:5000${product.image}`}
                 alt={product.name}
               />
               <ProductName>{product.name}</ProductName>
-              <ProductPrice>₹{product.price}</ProductPrice>
-              <ProductDetails>{product.details}</ProductDetails>
-              <AddToCartButton onClick={() => handleAddToCart(product._id)}>
-                Add to Cart
-              </AddToCartButton>
-            </ProductCard>
-          ))}
-        </ProductGrid>
-      </Container>
-    );
-  };
-  
-  export default ProfilePage;
+            </Link>
+            <ProductPrice>₹{product.price}</ProductPrice>
+            <ProductDetails>{product.details}</ProductDetails>
+            <AddToCartButton onClick={() => handleAddToCart(product._id)}>
+              Add to Cart
+            </AddToCartButton>
+          </ProductCard>
+        ))}
+      </ProductGrid>
+    </Container>
+  );
+};
+
+export default ProfilePage;
